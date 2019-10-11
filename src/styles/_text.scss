@@ -1,0 +1,25 @@
+$fontFamily : 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+%text {
+	font-family: $fontFamily;
+	font-size:16px;
+}
+
+%text-center{
+	@extend %text;
+	text-align: center;
+}
+%bold{
+	font-weight: bold;
+}
+
+.text{
+	font-family: $fontFamily;
+	font-size:16px;
+}
+.text-center{
+	text-align: center;
+}
+.bold{
+	font-weight: bold;
+}

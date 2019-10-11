@@ -1,0 +1,44 @@
+@import '../../styles/text';
+
+.notes-title{
+	margin-top:50px;
+	font-size: 32px;
+}
+.container-notes{
+	display:flex;
+	flex-direction: column;
+	margin-top:20px;
+}
+.note{
+	position: relative;
+	margin-bottom:20px;
+	border: 2px solid grey;
+	display: flex;
+	flex-direction: column;
+}
+.note:hover{
+	border: 2px solid #ac0303;
+}
+.note-title-date{
+	margin:25px 30px;
+	display: flex;
+}
+.note-title{
+	width:50%;
+	font-size:20px;
+	text-decoration: underline;
+}
+.note-date{
+	width:30%;
+	color:rgb(100, 100, 100);
+	text-align: right;
+}
+.note-body{
+	margin:0px 30px 25px 30px;
+	color:rgb(100, 100, 100);
+	overflow-wrap:break-word;
+}
+.note-important{
+	width:20%;
+	color: #ac0303;
+}

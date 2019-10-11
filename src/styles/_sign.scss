@@ -1,0 +1,64 @@
+@import './text';
+
+.sign{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+
+    h3{
+        @extend %text;
+        @extend %bold;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }    
+    
+    label{
+        @extend %text;
+        margin-bottom: 6px;
+        font-size: 20px;
+    }
+    #username-label{
+        margin-top: 25px;
+    }
+    input{
+        @extend %text;
+        width: 300px;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+    button{
+        @extend %text;
+        width: 150px;
+        font-size: 18px;
+        margin: 0;
+        
+        a {
+            color: white;
+            text-decoration: none;
+          }
+    }
+    .sign-alternative{
+        margin-top: 25px;
+        @extend %text;
+        font-size: 18px;
+        
+        a{
+            color: rgb(148, 27, 27);
+        }
+    }
+
+    //sign messages (errors or not)
+    .alert{
+        @extend %text;
+        width: 815px;
+        padding: 8px 15px;
+        font-size: 18px;
+        line-height: 1.5;
+    }
+    .alert-red{
+        background-color: rgba(243, 35, 35, 0.685);
+    }
+    .alert-green{
+        background-color: rgba(39, 187, 51, 0.705);
+    }
+}

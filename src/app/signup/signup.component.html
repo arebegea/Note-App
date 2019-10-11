@@ -1,0 +1,32 @@
+<div class="sign" id="sign-up">
+    <h3>Create a new account: </h3>
+    <span *ngFor='let message of alertMessage' [class]="alertColor" id="sign-messages">{{message}}</span>
+    <label id='username-label' for="sign-up-username">
+        Username: </label>
+    <input type="text" id="sign-up-username" 
+    required minlength="8" maxlength="30" size="30" [(ngModel)]="userData.username">
+
+    <label for="sign-up-email">
+        E-mail Address: </label>
+    <input type="email" id="sign-up-email"
+     required minlength="8" maxlength="100" size="30" [(ngModel)]="userData.email">
+
+    <label for="sign-up-tel">
+        Telephone: </label>
+    <input type="text" id="sign-up-tel" 
+    required minlength="8" maxlength="20" size="30" [(ngModel)]="userData.telephone">
+
+    <label for="sign-up-password">
+        Password: </label>
+    <input type="password" id="sign-up-password" 
+    required minlength="8" maxlength="50" size="30" [(ngModel)]="userData.password">
+
+    <label for="sign-up-password">
+        Confirm Password: </label>
+    <input type="password" id="sign-up-confirm-password" 
+    required minlength="8" maxlength="50" size="30" [(ngModel)]="userData.passwordConfirm">
+
+    <button class="btn" id="btn-sign-up" (click)="createNewUser()">Sign Up!</button>
+
+    <p class="sign-alternative">Already have an account? <a routerLink = '/signin'>Log in here!</a></p>
+</div>

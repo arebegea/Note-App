@@ -1,0 +1,14 @@
+<div class="sign" id="sign-in">
+    <h3>Log in here: </h3>
+    <span [class]="alertColor" id="sign-messages">{{alertMessage}}</span>
+    <label id='username-label' for="sign-in-username">
+        Username: </label>
+    <input type="text" id="sign-in-username" 
+    required minlength="8" maxlength="20" size="30" [(ngModel)]="usernameFromInput">
+    <label for="sign-in-password">
+        Password: </label>
+    <input type="password" id="sign-in-password" 
+    required minlength="8" maxlength="20" size="30" [(ngModel)]="passwordFromInput">
+    <button class="btn" id="btn-sign-in" (click)="signInUser()">Log in!</button>
+    <p class="sign-alternative">You are not registered? <a routerLink="/signup">Sign up!</a></p>
+</div>
