@@ -9,7 +9,7 @@ import { NotePageComponent } from './note-page/note-page.component';
 const routes: Routes = [
   {
     path: '',
-    component: SigninComponent
+    component: HomePageComponent
   },
   {
     path: 'signin',
@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'notes',
     component: NotePageComponent
+  },
+  {
+    path: 'notes/edit/:id',
+    loadChildren: './edit-note/edit-note.module#EditNoteModule'
   }
 ];
 

@@ -1,8 +1,9 @@
-export interface NoteType extends NewNoteType{
+export interface NoteType extends FormNoteType{
     timestamp?: number;
+    noteId?: string;
 }
 
-export interface NewNoteType{
+export interface FormNoteType{
     title: string;
     body: string;
     important: boolean;

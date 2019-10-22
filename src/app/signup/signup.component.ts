@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +21,7 @@ export class SignupComponent implements OnInit {
   alertMessage: string[] = [''];
 
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.alertColor = 'alert';
@@ -44,7 +45,7 @@ export class SignupComponent implements OnInit {
         this.alertColor = 'alert alert-green';
         this.alertMessage = serverResponse.message;
         localStorage.setItem('loggedin', '');
-        window.location.replace("http://localhost:4200/signin" + "?msg=newacc");
+        this.router.navigateByUrl("/signin/" + "?msg=newacc");
       }
       else {
 

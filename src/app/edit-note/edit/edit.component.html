@@ -1,0 +1,26 @@
+<div class="text note-edit">
+    <div class="edit-title-checkbox">
+        <label class="bold text title-label" for="title-edit">
+            Title (5 to 30 characters):</label>
+        <label class="bold text checkbox-text" for="checkbox-imp">
+            Important</label>
+
+        <input type="checkbox" name="checkbox-imp" id="checkbox-imp" [(ngModel)]="editNoteData.important">
+        <input type="color" name="favcolor" id="color-picker" [(ngModel)]="editNoteData.color">
+        <button class="btn text" id="cancel-edit" (click)="cancelEdit()">Cancel</button>
+    </div>
+
+    <input class="text title-text" type="text" id="title-edit" 
+    required minlength="5" maxlength="30" size="30" [(ngModel)]="editNoteData.title">
+
+    <label class="bold text body-label" for="body-edit" >
+        Main text (max. 4000 characters)</label>
+
+    <textarea class="text body-text" type="text" id="body-edit" 
+    required maxlength="4000" rows="10" cols="47" size="30" [(ngModel)]="editNoteData.body"></textarea>
+
+    <button class="btn text save" id="save-edit" (click)="saveEditedNote()" >Save</button>
+
+    <button class="btn text reset" id="reset-edit" (click)="resetFormFields()">Reset</button>
+
+</div>

@@ -1,0 +1,17 @@
+<div class="note" (mousedown)="fireMouseDownEvent()" (mouseup)="fireMouseUpEvent()"
+    [ngStyle]="{'background-color': note.color}">
+    <div class="note-title-date">
+        <h3 class="bold text note-title">{{note.title}}</h3>
+        <span
+            [ngClass]="note.important ? 'text bold note-important' : 'text bold note-important hidden'">!IMPORTANT!</span>
+        <span class="text note-date">{{note.timestamp | date:'medium'}}</span>
+    </div>
+    <p class="text note-body">{{note.body}}</p>
+    <app-note-menu [ngClass]="isSideMenuVisible ? '' : 'display-none'"
+    (deleteNoteEvent) = "deleteNote($event)" 
+    (editNoteEvent)="editNote($event)"
+    (copyNoteToClipboardEvent)="copyNoteToClipboard($event)"
+    (closesideMenuEvent)="closeSideMenu($event)"
+    ></app-note-menu>
+</div>
+<!-- <button (click)="onDeleteClick(node.id)"></button> -->

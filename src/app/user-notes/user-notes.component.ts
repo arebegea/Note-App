@@ -1,7 +1,5 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { UserService } from '../user.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NoteService } from '../note.service';
-
 
 @Component({
   selector: 'app-user-notes',
@@ -10,17 +8,21 @@ import { NoteService } from '../note.service';
 })
 export class UserNotesComponent implements OnInit {
 
-  // @Output onDelete: EventEmitter = new 
+  @Output() private copyNoteToClipboardEvent = new EventEmitter();
 
-  @Input() allNotes;
+  constructor(private noteService: NoteService) { }
 
-  constructor() { }
+  // @Input() private allNotes;
+
+
+   get allNotes() {
+    return this.noteService.allNotes;
+  }
+
+  copyToClipboard(note) {
+    this.copyNoteToClipboardEvent.emit(note);
+  }
 
   async ngOnInit() {
   }
-
-
-  // onDeleteClick(id:string){
-  //   this.onDelete.emit(id)
-  // }
 }

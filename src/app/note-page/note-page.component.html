@@ -1,5 +1,5 @@
-<app-new-note (saveNewNoteEvent) = "newNoteAdded($event)"></app-new-note>
+<app-new-note [notePageSubject]="subject"></app-new-note>
 
-<app-user-notes [allNotes]="userNotes" ></app-user-notes>
+<app-user-notes (copyNoteToClipboardEvent)=copyToClipboard($event)></app-user-notes>
 
 <!-- (onDelete)="onNodeDelete($event)" -->

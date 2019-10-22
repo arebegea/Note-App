@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { UserService } from '../user.service';
 import { NoteService } from '../note.service';
-import { NoteType, NewNoteType } from '../types/note.type'
+import { NoteType, FormNoteType } from '../types/note.type'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-note',
@@ -12,18 +13,24 @@ import { NoteType, NewNoteType } from '../types/note.type'
 export class NewNoteComponent implements OnInit {
 
   @Output() saveNewNoteEvent = new EventEmitter();
+  @Input() private notePageSubject;
 
-
-  newNoteData: NewNoteType = {
+  newNoteData: FormNoteType = {
     title: '',
     body: '',
     important: false,
     color: '#ffffff'
   }
-
-  constructor(private userService: UserService, private noteService: NoteService) { }
+  
+  constructor(private userService: UserService, private noteService: NoteService, private router: Router) { }
 
   async ngOnInit() {
+    this.notePageSubject.subscribe(copiedNote => {
+      this.newNoteData.title = copiedNote.title;
+      this.newNoteData.body = copiedNote.body;
+      this.newNoteData.important = copiedNote.important;
+      this.newNoteData.color = copiedNote.color;
+    });
   }
 
   async saveNewNote() {
@@ -34,16 +41,14 @@ export class NewNoteComponent implements OnInit {
 
       const dataSaved:NoteType = this.newNoteData;
       dataSaved.timestamp = Date.now();
-      console.log('data to be saved', dataSaved.timestamp);
+      
 
       const response = await this.noteService.addNoteToDatabase(dataSaved, userLogInId);
+      console.log('response from server ', response);
 
       if (response.status == 'success') {
 
-        // this.allNotes.push(dataSaved);
-        //add note at the array in parent
-
-        this.saveNewNoteEvent.emit(dataSaved);
+        this.saveNewNoteEvent.emit();
       }
 
       else {
@@ -51,7 +56,7 @@ export class NewNoteComponent implements OnInit {
       }
       this.resetFormFields();
     }
-    else window.location.replace("http://localhost:4200/");
+    else this.router.navigateByUrl("/signin");
   }
 
   async logOut() {
@@ -63,7 +68,7 @@ export class NewNoteComponent implements OnInit {
     if (serverResponse.status == 'success') {
 
       localStorage.removeItem('loggedin');
-      window.location.replace("http://localhost:4200/signin");
+      this.router.navigateByUrl("/signin");
     }
     else {
       alert('Log out failed! ' + serverResponse.message);
@@ -78,4 +83,16 @@ export class NewNoteComponent implements OnInit {
       color: '#ffffff'
     }
   }
+
+
+
+  // const ev: EventEmitter = new EventEmitter()
+
+  // function notecopiedtoCli(note:Notge){
+  //   this.ev.emit(note);
+  // }
+
+  // ev
+
+
 }

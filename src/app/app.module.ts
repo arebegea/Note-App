@@ -11,6 +11,8 @@ import { SignupComponent } from './signup/signup.component';
 import { NotePageComponent } from './note-page/note-page.component';
 import { UserNotesComponent } from './user-notes/user-notes.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { NoteComponent } from './note/note.component';
+import { NoteMenuComponent } from './note-menu/note-menu.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HomePageComponent } from './home-page/home-page.component';
     SignupComponent,
     NotePageComponent,
     UserNotesComponent,
-    HomePageComponent
+    HomePageComponent,
+    NoteComponent,
+    NoteMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -31,3 +35,4 @@ import { HomePageComponent } from './home-page/home-page.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 

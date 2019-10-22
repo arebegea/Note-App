@@ -20,6 +20,11 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
 
+    if(localStorage.getItem('loggedin')){
+      
+      this.router.navigateByUrl('/notes');
+    }
+
     let msg: string;
     this.activatedRoute.queryParams.subscribe(params => msg = params['msg']);
 

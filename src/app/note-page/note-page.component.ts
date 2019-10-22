@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { NoteType } from '../types/note.type';
 import { NoteService } from '../note.service';
 
@@ -9,38 +11,27 @@ import { NoteService } from '../note.service';
 })
 export class NotePageComponent implements OnInit {
 
-  userNotes: NoteType[];
+  subject = new Subject<NoteType>();
 
-  constructor(private noteService: NoteService) { }
+  constructor(private router: Router, private noteService: NoteService) { }
 
   async ngOnInit() {
 
     const userLogInId = localStorage.getItem('loggedin');
 
-    if(userLogInId){
-      
-    this.userNotes = await this.noteService.getAllNotedFromDB(userLogInId);
-    this.sortNoteArray(this.userNotes)
-
-    console.log(this.userNotes);
+    if (userLogInId) {
+      this.noteService.getAllNotesFromDB(userLogInId);
     }
-    else window.location.replace("http://localhost:4200/signin");
+    else {
+      this.router.navigateByUrl("/signin");
+    }
+  }
+
+  copyToClipboard(note) {
+    this.subject.next(note);
   }
 
 
-  newNoteAdded(savedNote){
 
-    this.userNotes.push(savedNote);
-    this.sortNoteArray(this.userNotes);
-  }
-
-  private sortNoteArray(userNotes){
-    userNotes.sort( (a, b) => b.timestamp - a.timestamp);
-  }
-
-  // onNodeDelete(id:string) {
-  //   // push la server
-  //   // ok > delete from localArray
-  // }
 
 }

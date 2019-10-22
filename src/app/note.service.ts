@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NoteType } from './types/note.type';
 
 @Injectable({
   providedIn: 'root'
@@ -16,18 +17,24 @@ export class NoteService {
     noteId: ['noteUniqueId']
   }
 
-  //service methods
+  private _allNotes: NoteType[];
+
+  get allNotes() {
+    return this._allNotes;
+  }
 
   //**********************************
   //GET ALL NOTES FROM DB
   //**********************************
 
-  public async getAllNotedFromDB(userLogInId) {
+  public async getAllNotesFromDB(userLogInId) {
 
     const currentFormatNotes = await this.getCurrentFormatNotes(userLogInId);
     const archivedNotes = await this.getArchivedNotes(userLogInId);
+    this._allNotes = currentFormatNotes.concat(archivedNotes);
+    this.sortNoteArray(this._allNotes);
 
-    return currentFormatNotes.concat(archivedNotes);
+    return this._allNotes;
   }
 
   //**********************************
@@ -44,8 +51,15 @@ export class NoteService {
       method: 'POST',
       body: JSON.stringify(data)
     });
+    const responseJson = await response.json();
 
-    return response.json(); //should be changed to handle errors
+    if (responseJson.status == 'success') {
+
+      this._allNotes.push(responseJson.dataFromServer);
+      this.sortNoteArray(this._allNotes);
+    }
+
+    return responseJson; //should be changed to handle errors
   }
 
   //**********************************
@@ -60,23 +74,45 @@ export class NoteService {
         "Content-Type": "application/json"
       }
     });
-    return response.json(); //should be changed to handle errors
+    const responseJson = await response.json();
+
+    if (responseJson.status == 'success') {
+
+      const index = this._allNotes.findIndex(x => x.noteId == uniqueId);
+      this._allNotes.splice(index, 1);
+    }
   }
 
   //*************************************
   //EDIT NOTE FROM CURRENT DATABASE ENTRY
   //*************************************
 
-  public async editNoteInDatabase(uniqueId, data) {
+  public async editNoteInDatabase(data, userLogInId) {
 
-    const response = await fetch('http://localhost:3000/notes/' + uniqueId, {
+    const response = await fetch('http://localhost:3000/notes/' + userLogInId, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     });
-    return response.json();
+    const responseJson = await response.json();
+
+    if (responseJson.status == 'success') {
+
+      this._allNotes.forEach(x => {
+        if (x.noteId == data.noteId) {
+          x = data;
+        }
+      });
+      this.sortNoteArray(this._allNotes);
+    }
+
+    return responseJson; //should be changed to handle errors
+  }
+
+  private sortNoteArray(userNotes) {
+    userNotes.sort((a, b) => b.timestamp - a.timestamp);
   }
 
   //private functions
@@ -144,4 +180,5 @@ export class NoteService {
   //     date: 'Acum si mai putin mai putin ffff mult timp',
   //     timestamp: 1268159922000
   // }
+
 }
